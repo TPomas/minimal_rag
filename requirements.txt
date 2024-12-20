@@ -1,0 +1,12 @@
+unstructured[all-docs]
+loguru
+langdetect
+chromadb==0.4.24
+llama-index==0.10.23
+llama-index-embeddings-huggingface==0.1.4
+llama-index-embeddings-openai==0.1.11
+llama-index-vector-stores-chroma==0.1.8
+llama-index-llms-openai-like==0.1.3
+llama-index-llms-openai==0.1.29
+iso-639==0.4.5
+streamlit==1.38.0
