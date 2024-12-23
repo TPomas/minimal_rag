@@ -4,6 +4,10 @@ RAG scripts that are meant to be easily reusable.
 
 Not running on Pachyderm/MLDM meaning that custom images won't be necessary, as long as the environment contains all dependencies needed to run the three scripts.
 
+Dockerfile present under code/ can be used to build an image with all dependencies needed to run the python scripts, as well as including the scripts themselves. This image would mostly be useful when trying to deploy the RAG-powered streamlit application.
+
+The airflow_dag_example folder contains a python script that defines a very simple Airflow DAG, that could be used to automate the first two steps of this solution, parsing and embedding.
+
 ## Prerequisites
 
 * Access to already deployed embedding and chat models endpoints.
@@ -11,7 +15,7 @@ Not running on Pachyderm/MLDM meaning that custom images won't be necessary, as 
 ```
 conda create -n <ENV_NAME> python=3.10
 conda activate <ENV_NAME>
-pip install -r requirements.txt
+pip install -r code/requirements.txt
 ```
 * Documents to be used by the RAG solution must be made available under a global <INPUT_DIR> directory and its subdirectories, each one containing one or more pdf files:
 ```
