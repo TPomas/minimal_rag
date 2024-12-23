@@ -51,7 +51,7 @@ streamlit run gui.py -- --path-to-db <VECTORDB_DIR> --model <CHAT_MODEL_NAME> --
 * Streamlit application will be accessible on port 8501.
 ## Caveats
 * Works with pdf files, but hasn't been tested with other file types, although common ones like .txt and .docx are likely to be supported.
-* [] commented
+* Need to test by uncommenting "skip_infer_table_types=[]" in parsing script. (running into errors locally)
 * To avoid wasting time and resources parsing and embedding documents that have already been processed, the scripts are checking whether existing documents have the same name (except for the .json extension) under <PARSED_DOCS_DIR> (for the parsing step) and whether the vector database already contains chunks from the same initial document (for the embedding step). By default, the scripts will not re-parse documents nor re-embed chunks in those cases. Therefore:
-  * Make sure that all source documents have different names, even those from different subdirectories.
+  * Make sure that all source documents have different names, even those from different subdirectories. (although scripts could be updated to bypass this issue)
   * If you are willing to re-parse documents, or re-embed chunks (e.g. in case a document has been updated while keeping the same name, or for testing different parsing parameters and embedding models), you can use the `--reparse` flag with the parsing script and the `reembed`for the embedding script.
