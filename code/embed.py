@@ -13,7 +13,7 @@ from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.llms.openai_like import OpenAILike
 from openai import OpenAI
 from typing import Any, List, Optional, Tuple
-from iso639 import languages
+#from iso639 import languages
 from loguru import logger
 Embedding = List[float]
 
@@ -116,26 +116,26 @@ def main(data_path, embed_model, db, model_url=None, translate_model=None, max_t
                                 "Commit": os.environ.get("PACH_JOB_ID", ""),
                                 "Tag": tag,
                             }
-                            if model_url and not (doc["metadata"]["lang"] == '' or doc["metadata"]["lang"] == 'en' or doc["metadata"]["lang"] == None) and len(text) > 10:
-                                llm = OpenAILike(model=translate_model, api_base=model_url, api_key="none")
-                                generate_kwargs = {
-                                    "temperature": 0.2,
-                                    "top_p": 0.8,
-                                    "max_tokens": max_tokens,
-                                }
-                                logger.info(f"generate args {generate_kwargs}")
-                                lang = languages.get(alpha2=doc["metadata"]["lang"]).name
-                                logger.info(f'Translating from {doc["metadata"]["lang"]} for {source}')
-                                translate_template_str_llama3 = f"""
-                                    <|begin_of_text|><|start_header_id|>user<|end_header_id|>
-                                    Please translate the following text from {lang} to English with no extra explanations.
-                                    {text}
-                                    <|eot_id|><|start_header_id|>assistant<|end_header_id|>
-                                    """
-                                translated = llm.complete(translate_template_str_llama3, **generate_kwargs)
-                                metadata["original"] = text
-                                metadata["lang"] = doc["metadata"]["lang"]
-                                text = translated.text
+                            #if model_url and not (doc["metadata"]["lang"] == '' or doc["metadata"]["lang"] == 'en' or doc["metadata"]["lang"] == None) and len(text) > 10:
+                            #    llm = OpenAILike(model=translate_model, api_base=model_url, api_key="none")
+                            #    generate_kwargs = {
+                            #        "temperature": 0.2,
+                            #        "top_p": 0.8,
+                            #        "max_tokens": max_tokens,
+                            #    }
+                            #    logger.info(f"generate args {generate_kwargs}")
+                            #    lang = languages.get(alpha2=doc["metadata"]["lang"]).name
+                            #    logger.info(f'Translating from {doc["metadata"]["lang"]} for {source}')
+                            #    translate_template_str_llama3 = f"""
+                            #        <|begin_of_text|><|start_header_id|>user<|end_header_id|>
+                            #        Please translate the following text from {lang} to English with no extra explanations.
+                            #        {text}
+                            #        <|eot_id|><|start_header_id|>assistant<|end_header_id|>
+                            #        """
+                            #    translated = llm.complete(translate_template_str_llama3, **generate_kwargs)
+                            #    metadata["original"] = text
+                            #    metadata["lang"] = doc["metadata"]["lang"]
+                            #    text = translated.text
 
                             docs.append(TextNode(text=text, metadata=metadata))
                             
