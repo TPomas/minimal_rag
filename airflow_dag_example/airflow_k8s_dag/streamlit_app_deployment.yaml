@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-app-deployment
+  namespace: rag
+  labels:
+    app: streamlit-rag-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: streamlit-rag
+  template:
+    metadata:
+      labels:
+        app: streamlit-rag
+    spec:
+      containers:
+      - name: streamlit-rag-app
+        image: tpomas/rag-pdf-base:minimal-0.0.2
+        command: ["/bin/sh"]
+        args: ["-c", "cd /code && streamlit run gui.py -- --path-to-db /vectordb--model <CHAT_MODEL_NAME> --path-to-chat-model <CHAT_MODEL_PATH> --emb-model-path <EMBED_MODEL_PATH> --cutoff 0.6 --streaming"]
+        volumeMounts:
+        - mountPath: /code
+          name: code
+        - mountPath: /vectordb
+          name: vectordb
+      volumes:
+      - name: code
+        hostPath:
+          path: <PATH_TO_CODE> # code folder
+          type: Directory
+      - name: vectordb
+        hostPath:
+          path: <PATH_TO_VECTORDB> # folder that contains (or will contain) the vector DB
+          type: Directory

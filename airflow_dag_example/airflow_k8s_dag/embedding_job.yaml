@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Job
+metadata:
+  name: embedding-job
+  namespace: airflow
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      containers:
+      - name: embedding-container
+        image: tpomas/rag-pdf-base:minimal-0.0.2
+        command: ["/bin/sh"]
+        args: ["-c", "python3 /code/embed.py --emb-model-name <EMB_MODEL_NAME> --data-path /data --emb-model-path <EMBEDDING_MODEL_PATH> --path-to-db /vectordb"]
+        volumeMounts:
+        - mountPath: /chunks
+          name: chunks
+        - mountPath: /vectordb
+          name: vectordb
+        - mountPath: /code
+          name: code
+      restartPolicy: Never
+      volumes:
+      - name: chunks 
+        hostPath:
+          path: <PATH_TO_CHUNKS> # input folder containing chunks from previous step
+          type: Directory
+      - name: vectordb
+        hostPath:
+          path: <PATH_TO_VECTORDB> # folder that contains (or will contain) the vector DB
+          type: Directory
+      - name: code
+        hostPath:
+          path: <PATH_TO_CODE> # code folder
+          type: Directory
