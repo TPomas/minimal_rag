@@ -6,7 +6,7 @@ Not running on Pachyderm/MLDM meaning that custom images won't be necessary, as 
 
 Dockerfile present under code/ can be used to build an image with all dependencies needed to run the python scripts, as well as including the scripts themselves. This image would mostly be useful when trying to deploy the RAG-powered streamlit application.
 
-The airflow_dag_example folder contains a python script that defines a very simple Airflow DAG, that could be used to automate the first two steps of this solution, parsing and embedding.
+The airflow_dag_example folder contains a python script that defines a very simple Airflow DAG, that could be used to automate the first two steps of this solution, parsing and embedding. It also contains a folder that includes another python script defining an Airflow DAG working on K8S using Kubernetes jobs, along with YAML files defining those Kubernetes jobs and deployment for the streamlit application.
 
 ## Prerequisites
 
