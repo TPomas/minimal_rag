@@ -164,20 +164,17 @@ def reset_chat():
     if "messages" in st.session_state:
         del st.session_state.messages
         
-def swap_mode():
-    return 0
-
 col1, col2 = st.columns(2)
 
-RAG_enabled = col2.checkbox("Enable RAG", value=True, on_change=reset_chat)
+#RAG_enabled = col2.checkbox("Enable RAG", value=True, on_change=reset_chat)
 
-# need updated streamlit
-#mode = col2.segmented_control("Mode Selection", options=["RAG", "Chat"], default="RAG")
+# segmented_control looks better than checkbox for the use we have in the application
+mode = col2.segmented_control("Mode Selection", options=["RAG", "Chat"], default="RAG", on_change=reset_chat)
 
-#if mode == "RAG":
-#    RAG_enabled = True
-#else:
-#    RAG_enabled = False
+if mode == "RAG":
+    RAG_enabled = True
+else:
+    RAG_enabled = False
     
 col2.button("Erase history", on_click=reset_chat)
 
