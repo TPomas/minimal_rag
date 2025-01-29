@@ -8,6 +8,7 @@ COPY requirements.txt ./
 
 RUN pip install -r requirements.txt
 RUN pip install opencv-python-headless
+RUN pip install streamlit==1.41.0
 RUN python3 -m nltk.downloader punkt
 
 COPY gui.py /app
