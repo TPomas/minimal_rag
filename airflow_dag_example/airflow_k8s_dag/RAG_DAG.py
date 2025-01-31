@@ -14,7 +14,7 @@ with DAG(
     job_template_file="<PATH_TO>/parsing-job.yaml" # /opt/airflow/dags if K8s job files are next to DAG files
   )
 
-  t1 = KubernetesPodOperator(
+  t2 = KubernetesJobOperator(
     name="embed-chunks",
     task_id="embed-chunks",
     job_template_file="<PATH_TO>/embedding-job.yaml" # /opt/airflow/dags if K8s job files are next to DAG files
