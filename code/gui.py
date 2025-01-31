@@ -15,7 +15,7 @@ from llama_index.llms.openai_like import OpenAILike
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from transformers import AutoTokenizer
 
-from iso639 import languages
+#from iso639 import languages
 
 assistant_logo = "logo.jpeg" #"c-logo.jpg"
 top_bar_logo = "hpe_pri_wht_rev_rgb.png" #"c_logo_white.png"
@@ -368,7 +368,8 @@ if prompt := input_container.chat_input("Say something..."):
                 if "original" in references[i].node.metadata:
                     original = references[i].node.metadata["original"]
                     if "lang" in references[i].node.metadata:
-                        lang = languages.get(alpha2=references[i].node.metadata["lang"]).name
+                        #lang = languages.get(alpha2=references[i].node.metadata["lang"]).name
+                        lang = "Unknown"
                         if lang == "Croatian":
                             lang = "Serbian"
                     else:
